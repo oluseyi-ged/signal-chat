@@ -3,6 +3,7 @@ import React, { useLayoutEffect, useState } from "react"
 import { KeyboardAvoidingView } from "react-native"
 import { StyleSheet, View } from "react-native"
 import { Button, Input, Text } from "react-native-elements"
+import { auth } from "../firebase"
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("")
@@ -16,7 +17,19 @@ const RegisterScreen = ({ navigation }) => {
     })
   }, [navigation])
 
-  const register = () => {}
+  const register = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        authUser.user.updateProfile({
+          displayName: name,
+          photoURL:
+            imageurl ||
+            "https://img.icons8.com/material-sharp/24/000000/user-male-circle.png",
+        })
+      })
+      .catch((error) => alert(error.message))
+  }
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
