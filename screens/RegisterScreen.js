@@ -25,7 +25,7 @@ const RegisterScreen = ({ navigation }) => {
           displayName: name,
           photoURL:
             imageurl ||
-            "https://img.icons8.com/material-sharp/24/000000/user-male-circle.png",
+            "https://img.icons8.com/material-sharp/240/000000/user-male-circle.png",
         })
       })
       .catch((error) => alert(error.message))
