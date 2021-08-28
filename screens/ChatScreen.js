@@ -118,10 +118,10 @@ const ChatScreen = ({ navigation, route }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <>
-            <ScrollView>
+            <ScrollView contentContainerStyle={{ paddingTop: 15 }}>
               {messages.map(({ id, data }) =>
                 data.email === auth.currentUser.email ? (
-                  <View key={id} style={styles.receiver}>
+                  <View key={id} style={styles.sender}>
                     <Avatar
                       size={30}
                       position="absolute"
@@ -136,10 +136,10 @@ const ChatScreen = ({ navigation, route }) => {
                         right: -5,
                       }}
                     />
-                    <Text style={styles.recieverText}>{data.message}</Text>
+                    <Text style={styles.senderText}>{data.message}</Text>
                   </View>
                 ) : (
-                  <View key={id} style={styles.sender}>
+                  <View key={id} style={styles.receiver}>
                     <Avatar
                       size={30}
                       position="absolute"
@@ -154,7 +154,8 @@ const ChatScreen = ({ navigation, route }) => {
                         left: -5,
                       }}
                     />
-                    <Text style={styles.senderText}>{data.message}</Text>
+                    <Text style={styles.receiverText}>{data.message}</Text>
+                    <Text style={styles.receiverName}>{data.displayName}</Text>
                   </View>
                 )
               )}
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  receiver: {
+  sender: {
     padding: 15,
     backgroundColor: "#ececec",
     alignSelf: "flex-end",
@@ -194,7 +195,18 @@ const styles = StyleSheet.create({
     maxWidth: "80%",
     position: "relative",
   },
-  sender: {
+  senderName: {
+    left: 10,
+    paddingLeft: 10,
+    fontSize: 10,
+    color: "#2b68e6",
+  },
+  senderText: {
+    color: "black",
+    fontWeight: "500",
+    marginLeft: 10,
+  },
+  receiver: {
     padding: 15,
     backgroundColor: "#2b68e6",
     alignSelf: "flex-start",
@@ -203,6 +215,19 @@ const styles = StyleSheet.create({
     maxWidth: "80%",
     position: "relative",
   },
+  receiverText: {
+    color: "white",
+    fontWeight: "500",
+    marginLeft: 10,
+    marginBottom: 5,
+  },
+  receiverName: {
+    left: 10,
+    paddingRight: 10,
+    fontSize: 10,
+    color: "lightblue",
+  },
+
   footer: {
     flexDirection: "row",
     width: "100%",
