@@ -35,7 +35,7 @@ const RegisterScreen = ({ navigation }) => {
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <StatusBar style="light" />
       <Text h3 style={{ marginBottom: 50 }}>
-        Create a Signal Account
+        Create a Chatly Account
       </Text>
       <View style={styles.inputContainer}>
         <Input

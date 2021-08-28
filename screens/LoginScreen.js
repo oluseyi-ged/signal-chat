@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useLayoutEffect, useState } from "react"
 import { KeyboardAvoidingView } from "react-native"
 import { StyleSheet, Text, View } from "react-native"
 import { Button, Image, Input } from "react-native-elements"
@@ -8,6 +8,12 @@ import { auth } from "../firebase"
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "Login to Chatly",
+    })
+  }, [navigation])
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -30,7 +36,7 @@ const LoginScreen = ({ navigation }) => {
       <StatusBar style="light" />
       <Image
         source={{
-          uri: "https://img.icons8.com/color/200/000000/signal-app.png",
+          uri: "https://img.icons8.com/color-glass/240/000000/chat.png",
         }}
         style={{ width: 200, height: 200 }}
       />
