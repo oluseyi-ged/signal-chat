@@ -31,7 +31,9 @@ const ChatScreen = ({ navigation, route }) => {
           <Avatar
             rounded
             source={{
-              uri: "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png",
+              uri:
+                messages[0]?.data.photoURL ||
+                "https://img.icons8.com/material-sharp/240/000000/user-male-circle.png",
             }}
           />
           <Text
@@ -75,7 +77,7 @@ const ChatScreen = ({ navigation, route }) => {
         </View>
       ),
     })
-  }, [navigation])
+  }, [navigation, messages])
 
   const sendMessage = () => {
     Keyboard.dismiss()
