@@ -96,7 +96,7 @@ const ChatScreen = ({ navigation, route }) => {
       .collection("chats")
       .doc(route.params.id)
       .collection("messages")
-      .orderBy("timestamp", "desc")
+      .orderBy("timestamp", "asc")
       .onSnapshot((snapshot) =>
         setMessages(
           snapshot.docs.map((doc) => ({
@@ -118,7 +118,47 @@ const ChatScreen = ({ navigation, route }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <>
-            <ScrollView></ScrollView>
+            <ScrollView>
+              {messages.map(({ id, data }) =>
+                data.email === auth.currentUser.email ? (
+                  <View key={id} style={styles.receiver}>
+                    <Avatar
+                      size={30}
+                      position="absolute"
+                      bottom={-15}
+                      right={-5}
+                      rounded
+                      source={{ uri: data.photoURL }}
+                      //WEB
+                      containerStyle={{
+                        position: "absolute",
+                        bottom: -15,
+                        right: -5,
+                      }}
+                    />
+                    <Text style={styles.recieverText}>{data.message}</Text>
+                  </View>
+                ) : (
+                  <View key={id} style={styles.sender}>
+                    <Avatar
+                      size={30}
+                      position="absolute"
+                      bottom={-15}
+                      left={-5}
+                      rounded
+                      source={{ uri: data.photoURL }}
+                      //WEB
+                      containerStyle={{
+                        position: "absolute",
+                        bottom: -15,
+                        left: -5,
+                      }}
+                    />
+                    <Text style={styles.senderText}>{data.message}</Text>
+                  </View>
+                )
+              )}
+            </ScrollView>
             <View style={styles.footer}>
               <TextInput
                 style={styles.textInput}
@@ -143,6 +183,25 @@ export default ChatScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  receiver: {
+    padding: 15,
+    backgroundColor: "#ececec",
+    alignSelf: "flex-end",
+    borderRadius: 20,
+    marginRight: 15,
+    marginBottom: 20,
+    maxWidth: "80%",
+    position: "relative",
+  },
+  sender: {
+    padding: 15,
+    backgroundColor: "#2b68e6",
+    alignSelf: "flex-start",
+    borderRadius: 20,
+    margin: 15,
+    maxWidth: "80%",
+    position: "relative",
   },
   footer: {
     flexDirection: "row",
